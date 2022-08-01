@@ -11,17 +11,35 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.'
   ]
    
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(0)  
+  const [votes, setVotes] = useState((new Array(anecdotes.length)).fill(0))
+  console.log("votes:", votes)
 
   return (
     <div>
       {anecdotes[selected]}<br/>
-      <Button setter={setSelected} count={anecdotes.length}/>
+      has {votes[selected]} votes<br/>
+      <VoteButton setter={setVotes} values={votes} selected={selected}/>
+      <NextButton setter={setSelected} count={anecdotes.length}/>
     </div>
   )
 }
 
-const Button = (props) => {
+
+const VoteButton = (props) => {
+  
+  const vote = () => {
+    const votesCopy = [...props.values]
+    votesCopy[props.selected] += 1
+    props.setter(votesCopy) 
+  }
+
+  return (
+    <button onClick={vote}>Vote</button>
+  )
+}
+
+const NextButton = (props) => {
   
   const showNext = () =>{
     let rand = Math.floor(Math.random() * props.count)
