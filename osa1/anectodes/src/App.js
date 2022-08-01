@@ -13,18 +13,47 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)  
   const [votes, setVotes] = useState((new Array(anecdotes.length)).fill(0))
-  console.log("votes:", votes)
-
+  
   return (
     <div>
-      {anecdotes[selected]}<br/>
-      has {votes[selected]} votes<br/>
+      <AnecdoteWithTitle anecdote={anecdotes[selected]} title="Anectode of the day"/>
+      <ShowVotes votes={votes[selected]}/>
       <VoteButton setter={setVotes} values={votes} selected={selected}/>
       <NextButton setter={setSelected} count={anecdotes.length}/>
+      <MostVotes votes={votes} anecdotes={anecdotes}/>
     </div>
   )
 }
 
+const AnecdoteWithTitle = (props) => {
+  return(
+    <div>
+      <h1>{props.title}</h1>
+      {props.anecdote}
+    </div>
+  )
+}
+
+const ShowVotes = (props) => {
+  return ( 
+    <div>has {props.votes} votes</div>
+  )
+}
+
+const MostVotes = (props) => {
+  const maxValue = Math.max(...props.votes)
+
+  const indexOfMaxVotes = () => {  
+    return props.votes.indexOf(maxValue)
+  }
+
+  return (
+    <div>
+      <AnecdoteWithTitle anecdote={props.anecdotes[indexOfMaxVotes()]} title={props.title}/>
+      <ShowVotes votes={maxValue}/>
+    </div>
+  )
+}
 
 const VoteButton = (props) => {
   
