@@ -3,7 +3,7 @@
 const Header = ({course}) => {
     return (
       <div>
-        <h1>{course.name}</h1>
+        <h2>{course.name}</h2>
       </div>
     )
   
@@ -28,7 +28,9 @@ const Header = ({course}) => {
     let ex = props.parts.map(p =>p.exercises)
     let sum  = ex.reduce((partialSum, a) => partialSum + a, 0)
     return (
+      <span style={ {fontWeight : 'bold'} }>
       <p className="sum">total of {sum} exercises</p>
+      </span>
     )
   }
 
