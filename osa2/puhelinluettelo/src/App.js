@@ -7,11 +7,22 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('')
 
+  const Validate = (validationRule, onSuccess, onInvalid) => {
+     validationRule() ? onSuccess() : onInvalid()
+  } 
+
+
   const addPerson = (event) => {
     event.preventDefault()
-    console.log("added: ", newName )
-    setPersons(persons.concat({name: newName, key: newName }))
-    event.target.name.value = ''  }
+    Validate(
+      () => !persons.find(p => p.name === newName ),
+      () => {
+        setPersons(persons.concat({name: newName, key: newName }))
+        event.target.name.value = ''  
+      },
+      () => alert(`${newName} is already added to the phonebook`)
+    )
+  }
 
   const personLines = persons.map( p => <p key={p.name}>{p.name}</p> )
   return (
