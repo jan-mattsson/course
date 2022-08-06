@@ -5,7 +5,7 @@ const Persons = ({persons,filter}) => {
       
       let filteredPersons = persons.filter(p => p.name.toUpperCase().includes(filter.toUpperCase()))
       console.log('Filtered: ',filteredPersons)
-      return (filteredPersons.map( p => <p key={p.name}>{p.name} {p.phoneNumber}</p>) )
+      return (filteredPersons.map( p => <p key={p.name}>{p.name} {p.number}</p>) )
     }
   
     return (

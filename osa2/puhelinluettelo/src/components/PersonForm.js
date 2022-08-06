@@ -17,7 +17,7 @@ const PersonForm = ({persons, setPersons}) => {
         Validate(
           () => !persons.find(p => p.name === newName ),
           () => {
-            setPersons(persons.concat({name: newName, key: newName, phoneNumber: newNumber }))
+            setPersons(persons.concat({name: newName, key: newName, number: newNumber }))
             event.target.name.value = ''  
             event.target.phoneNumber.value = ''
             setNewName('')
