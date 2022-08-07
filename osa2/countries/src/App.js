@@ -8,6 +8,7 @@ import Country from './components/Country'
 const App = () => {
 
   const [countries, setCountries] = useState([])
+  const [countryToShow, setCountryToShow] = useState({})
   const [filter, setFilter] = useState('')
 
   useEffect(() =>{
@@ -19,15 +20,22 @@ const App = () => {
         console.log('countries count', countries.length)
       })
   }, [])
-  
+
   const filteredCountries =  
     countries.filter(c => c.name.common.toLowerCase().includes(filter.toLowerCase()))
 
+
   return (
     <div className="App">
-      <Filter setFilter={setFilter} />
-      <CountryList countries={filteredCountries} />
-      <Country countries={filteredCountries} />
+      <Filter setFilter={(str) => {
+          setCountryToShow('')
+          setFilter(str)
+          }
+        } />
+      <CountryList countries={filteredCountries} 
+        countryToShow={countryToShow} 
+        setCountryToShow={setCountryToShow}/>
+      <Country countries={filteredCountries} countryToShow={countryToShow} />
     </div>
   );
 }

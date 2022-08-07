@@ -8,14 +8,13 @@ const Message = () => {
     )
 }
 
-const CountryNames = ({filteredCountries}) => {
+const CountryNames = ({countries, setCountryToShow}) => {
    //console.log('countries:',filteredCountries)
-   if (filteredCountries.length > MAX_COUNTRIES_TO_LIST) return ( <div><Message/></div> )
-   if (filteredCountries.length == 1) return (<div/>)
+   if (countries.length > MAX_COUNTRIES_TO_LIST) return ( <div><Message/></div> )
+   if (countries.length == 1) return (<div/>)
    const countryLines = 
-      filteredCountries
-      .map(c => c.name.common)
-      .map(c => <p key={c}>{c}</p>) 
+      countries
+      .map(c => <p key={c.cca3}>{c.name.common} <button onClick={(event) => setCountryToShow(c.cca3)}>Show</button></p>) 
     return (
         <div>
             {countryLines}
@@ -23,11 +22,11 @@ const CountryNames = ({filteredCountries}) => {
     )
 }
 
-const CountryList = ({countries}) => {
+const CountryList = ({countries, setCountryToShow}) => {
     
     return (
         <div>
-           <CountryNames filteredCountries={countries}/>
+           <CountryNames countries={countries} setCountryToShow={setCountryToShow}/>
         </div>
     )
 }
