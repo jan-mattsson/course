@@ -5,10 +5,11 @@ import Filter from './components/Filter'
 import CountryList from './components/CountryList'
 import Country from './components/Country'
 
+
 const App = () => {
 
   const [countries, setCountries] = useState([])
-  const [countryToShow, setCountryToShow] = useState({})
+  const [countryToShow, setCountryToShow] = useState('')
   const [filter, setFilter] = useState('')
 
   useEffect(() =>{
@@ -17,7 +18,6 @@ const App = () => {
       .then(response => {
         console.log(response.data)
         setCountries(response.data)
-        console.log('countries count', countries.length)
       })
   }, [])
 

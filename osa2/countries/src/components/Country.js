@@ -1,3 +1,4 @@
+import Weather from './Weather'
 
 const Country = ({countries, countryToShow}) => {
     let country = {}
@@ -29,6 +30,7 @@ const Country = ({countries, countryToShow}) => {
                 {languageLines}
             </ul>
             <img src={flag}/>
+            <Weather lat={country.latlng[0]} lon={country.latlng[1]} />
         </div>
     )
 }
