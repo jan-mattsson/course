@@ -1,12 +1,9 @@
-
+import axios from 'axios'
 import { useState } from 'react'
-
 
 const Validate = (validationRule, onSuccess, onInvalid) => {
     validationRule() ? onSuccess() : onInvalid()
 } 
-
-
 
 const PersonForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -17,11 +14,17 @@ const PersonForm = ({persons, setPersons}) => {
         Validate(
           () => !persons.find(p => p.name === newName ),
           () => {
-            setPersons(persons.concat({name: newName, key: newName, number: newNumber }))
-            event.target.name.value = ''  
-            event.target.phoneNumber.value = ''
-            setNewName('')
-            setNewNumber('')
+
+            const newPerson = {name: newName, key: newName, number: newNumber }
+            axios
+              .post('http://localhost:3001/persons', newPerson)
+              .then(response => {
+                setPersons(persons.concat(newPerson))
+                event.target.name.value = ''  
+                event.target.phoneNumber.value = ''
+                setNewName('')
+                setNewNumber('')
+            })            
           },
           () => alert(`${newName} is already added to the phonebook`)
         )
