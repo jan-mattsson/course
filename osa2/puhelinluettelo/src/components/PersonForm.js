@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { useState } from 'react'
+import AddNewPerson from './PersonPersistence'
+import PersonPersistence from './PersonPersistence'
 
 const Validate = (validationRule, onSuccess, onInvalid) => {
     validationRule() ? onSuccess() : onInvalid()
@@ -16,8 +17,7 @@ const PersonForm = ({persons, setPersons}) => {
           () => {
 
             const newPerson = {name: newName, key: newName, number: newNumber }
-            axios
-              .post('http://localhost:3001/persons', newPerson)
+            PersonPersistence.AddNewPerson(newPerson)
               .then(response => {
                 setPersons(persons.concat(newPerson))
                 event.target.name.value = ''  
