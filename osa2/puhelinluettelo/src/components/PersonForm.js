@@ -19,7 +19,8 @@ const PersonForm = ({persons, setPersons}) => {
             const newPerson = {name: newName, key: newName, number: newNumber }
             PersonPersistence.AddNewPerson(newPerson)
               .then(response => {
-                setPersons(persons.concat(newPerson))
+                console.log("PUT response", response)
+                setPersons(persons.concat(response.data))
                 event.target.name.value = ''  
                 event.target.phoneNumber.value = ''
                 setNewName('')

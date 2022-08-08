@@ -1,14 +1,21 @@
 import axios from 'axios'
 
+const PERSONS_COLLECTION_URI = "http://localhost:3001/persons"
+
 const GetAllPersons = () => {
     return axios
-    .get("http://localhost:3001/persons")
+    .get(PERSONS_COLLECTION_URI)
 }
 
 const AddNewPerson = ({name, key, number }) => {
     return axios
-    .post('http://localhost:3001/persons', {name:name, key:key, number:number})
-    .then(response => console.log('Add new person', response.data))
+    .post(PERSONS_COLLECTION_URI, {name:name, key:key, number:number})
 }
 
-export default {AddNewPerson, GetAllPersons }
+const DeletePerson =  (id) => {
+    console.log('DELETE', `${PERSONS_COLLECTION_URI}/${id}`)
+    return axios
+      .delete(`${PERSONS_COLLECTION_URI}/${id}`)
+}
+
+export default {AddNewPerson, GetAllPersons, DeletePerson }
