@@ -6,9 +6,9 @@ const Validate = (validationRule, onSuccess, onInvalid) => {
     validationRule() ? onSuccess() : onInvalid()
 } 
 
-const PersonForm = ({persons, setPersons}) => {
+const PersonForm = ({persons, setPersons, setNotification}) => {
     const [newName, setNewName] = useState('')
-    const [newNumber,setNewNumber] = useState('')
+    const [newNumber,setNewNumber] = useState('')    
     
     const addPerson = (event) => {
         event.preventDefault()
@@ -29,7 +29,8 @@ const PersonForm = ({persons, setPersons}) => {
             tmp[index] = response.data
             setPersons(tmp)
           }
-          
+          console.log('set message')
+          setNotification(`Added ${response.data.name}`)  
           event.target.name.value = ''  
           event.target.phoneNumber.value = ''
           setNewName('')
@@ -53,19 +54,15 @@ const PersonForm = ({persons, setPersons}) => {
     }
 
     return (
-
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input name='name'  onChange={ event => setNewName(event.target.value)}/>          
-        </div>
-        <div>number: <input name='phoneNumber' onChange={event => setNewNumber(event.target.value)}/></div>
-        <div>
-          <button type="submit">add</button>
-        </div>
+      <form className='form' onSubmit={addPerson}>        
+          <div className='label'>name:</div>
+          <div className='input'><input name='name'  onChange={ event => setNewName(event.target.value)}/></div>
+          <div className='label'>number:</div>
+          <div className='input'><input name='phoneNumber' onChange={event => setNewNumber(event.target.value)}/></div>
+          <div className='label'><button type="submit" disabled={newName === ''}>add</button></div>
       </form>
     )
     
-
 }
 
 export default PersonForm
