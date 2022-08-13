@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react'
-import Persons from './components/Persons'
-import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
-import PersonPersistence from './components/PersonPersistence'
 import Notification from './components/Notification'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import PersonPersistence from './components/PersonPersistence'
 
 import './index.css'
 
 const App = () => {
-  const [persons, setPersons] = useState([]) 
   const [filter, setFilter] = useState('')
-  const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState({message:'',msgType:'none'})
+  const [persons, setPersons] = useState([])
 
   useEffect(() => {
-    PersonPersistence.GetAllPersons()
-      .then(response => setPersons( response.data ))
+     PersonPersistence.GetAllPersons()
+     .then(response => setPersons(response.data))
+     .catch(e => setNotificationMessage({message: 'Failed to get data from server', msgType:'error'}))
   }, [])
 
   return (
@@ -24,11 +25,10 @@ const App = () => {
       <div className='form'>
         <Filter setFilter={setFilter}/>
       </div>
-
       <h2>Add new</h2>
       <PersonForm persons={persons} setPersons={setPersons} setNotification={setNotificationMessage} />
       <h2>Numbers</h2>
-      <Persons persons={persons} setPersons={setPersons} filter={filter}/>
+      <Persons persons={persons} setPersons={setPersons} filter={filter} setNotification={setNotificationMessage}/>
     </div>
   )
 

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import AddNewPerson from './PersonPersistence'
 import PersonPersistence from './PersonPersistence'
 
 const Validate = (validationRule, onSuccess, onInvalid) => {
@@ -30,7 +29,7 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
             setPersons(tmp)
           }
           console.log('set message')
-          setNotification(`Added ${response.data.name}`)  
+          setNotification({message: `Added ${response.data.name}`, msgType:'notification'})  
           event.target.name.value = ''  
           event.target.phoneNumber.value = ''
           setNewName('')
